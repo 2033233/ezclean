@@ -109,6 +109,7 @@
   .modal-save-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 25px; height: 44px; font-size: 16px; font-weight: 600; cursor: pointer; }
 
   /* 提示框系统 */
+  .alert-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 12px; }
   .alert-content { font-size: 13px; color: var(--text-g); margin-bottom: 20px; line-height: 1.5; white-space: pre-wrap; text-align: left; }
   .alert-btns { display: flex; border-top: 1px solid var(--border); margin: 0 -20px -20px; }
   .alert-btn { flex: 1; padding: 12px 0; font-size: 16px; font-weight: 600; color: var(--accent); cursor: pointer; text-align: center; }
@@ -231,7 +232,7 @@
   </div>
 
   <div class="modal-mask" id="confirmModal">
-    <div class="modal-box alert-box">
+    <div class="modal-box">
       <div class="alert-title">预约确认 & 服务须知</div>
       <div class="alert-content" id="confirmContent"></div>
       <div class="alert-btns">
@@ -290,7 +291,6 @@
   
   toggle.addEventListener('change', (e) => { state.isInverted = e.target.checked; render(); });
 
-  // 弹窗逻辑
   const infoModal = document.getElementById('infoModal');
   const triggerBtn = document.getElementById('infoTrigger');
   
@@ -311,42 +311,55 @@
     document.getElementById('triggerText').innerText = '预约信息已完善';
   }
 
-  // 下单确认逻辑
   const confirmModal = document.getElementById('confirmModal');
   
+  // 下单确认逻辑
   function submitOrder() {
-    if (!state.isInfoFilled) { showToast('请先完善预约信息'); infoModal.classList.add('show'); return; }
+    if (!state.isInfoFilled) { 
+      showToast('请先完善预约信息'); 
+      infoModal.classList.add('show'); 
+      return; 
+    }
     
     const curr = state.services.find(s => s.id === state.selectedId);
     const mode = state.isInverted ? '【主板倒置】' : '【普通机型】';
     const price = state.isInverted ? curr.price_inverted : curr.price_normal;
     
+    // 修改确认弹窗的文案，提示后续操作
     document.getElementById('confirmContent').innerText = 
-      `项目：${curr.name}\n机型：${state.userInfo.model} ${mode}\n\n⚠️ 服务承诺：\n1. 上门取货将提前1天通知\n2. 清灰工作在1-2天内完成\n3. 全程录像，非特殊情况不接受售后\n\n总价：¥${price}`;
+      `项目：${curr.name}\n机型：${state.userInfo.model} ${mode}\n总价：¥${price}\n\n⚠️ 注意事项：\n点击下方按钮后，系统将自动复制客服微信号并为您打开微信。\n请在微信中添加好友并告知您的机型及预约项目。`;
     
     confirmModal.classList.add('show');
   }
 
   function closeConfirm() { confirmModal.classList.remove('show'); }
 
+  // 处理跳转与复制逻辑
   function processOrder() {
     closeConfirm();
-    const curr = state.services.find(s => s.id === state.selectedId);
-    const mode = state.isInverted ? '【主板倒置】' : '';
-    const price = state.isInverted ? curr.price_inverted : curr.price_normal;
-    const textToCopy = `[EZ CLEAN 新订单]\n项目：${curr.name}\n价格：¥${price}\n机型：${state.userInfo.model} ${mode}\n称呼：${state.userInfo.name}\n联系：${state.userInfo.contact}`;
     
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      showToast('预约信息已生成，请发送给微信客服');
-      setTimeout(() => { window.location.href = "weixin://"; }, 1500); // 尝试拉起微信
+    // 目标微信号
+    const targetWxid = "wxid_gbodfcwsnii822";
+    
+    // 写入剪贴板
+    navigator.clipboard.writeText(targetWxid).then(() => {
+      showToast('微信号已复制，正在为您打开微信...');
+      
+      // 延时1.5秒后拉起微信主程序
+      setTimeout(() => { 
+        window.location.href = "weixin://"; 
+      }, 1500);
+      
     }).catch(err => {
-      showToast('预约成功！请手动联系微信: wxid_gbodfcwsnii822');
+      // 兼容部分不支持自动复制的旧版浏览器
+      showToast('复制失败，请手动添加微信: ' + targetWxid);
     });
   }
 
   function copyContact() {
-    navigator.clipboard.writeText('wxid_gbodfcwsnii822').then(() => {
-      showToast('微信号 wxid_gbodfcwsnii822 已复制，请前往添加');
+    const targetWxid = "wxid_gbodfcwsnii822";
+    navigator.clipboard.writeText(targetWxid).then(() => {
+      showToast('微信号已复制，请前往微信添加客服');
     });
   }
 
@@ -356,7 +369,7 @@
     setTimeout(() => el.classList.remove('show'), 2000);
   }
 
-  render(); // 初始化
+  render();
 </script>
 </body>
 </html>

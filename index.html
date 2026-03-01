@@ -14,107 +14,70 @@
     --border: rgba(255, 255, 255, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
-  body { background-color: var(--bg); color: var(--text-w); padding: 20px 16px 130px; position: relative; min-height: 100vh; overflow-x: hidden; }
+  body { background-color: var(--bg); color: var(--text-w); padding: 20px 16px 160px; position: relative; min-height: 100vh; overflow-x: hidden; }
   
-  /* 氛围光 */
   .bg-glow { position: fixed; width: 300px; height: 300px; border-radius: 50%; filter: blur(90px); opacity: 0.15; pointer-events: none; z-index: -1; }
   .top-glow { background: var(--accent); top: -100px; left: -50px; }
   .bottom-glow { background: #5E5CE6; bottom: -100px; right: -50px; }
 
-  /* 基础玻璃质感 */
   .glass-effect { background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 12px; position: relative; z-index: 1; }
   .glass-heavy { background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border-top: 1px solid var(--border); }
 
-  /* 头部 */
   .header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; }
   .brand { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
   .slogan-wrap { display: flex; align-items: center; margin-top: 4px; }
   .slogan { font-size: 12px; color: var(--text-g); letter-spacing: 1px; }
   .indicator { width: 15px; height: 2px; background: var(--accent); margin-left: 6px; border-radius: 2px; }
 
-  /* 开关卡片 */
   .switch-card { padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
   .switch-title { font-size: 15px; font-weight: 600; transition: color 0.3s; }
-  .switch-title.active { color: var(--accent); text-shadow: 0 0 5px rgba(10,132,255,0.3); }
-  .badge { font-size: 9px; background: var(--accent); color: #fff; padding: 1px 4px; border-radius: 3px; margin-left: 5px; font-weight: 700; display: none; }
-  .switch-title.active + .badge { display: inline-block; }
-  .switch-desc { font-size: 11px; color: var(--text-g); margin-top: 3px; display: block; }
-  
-  /* 苹果风 Toggle */
-  .toggle { appearance: none; width: 50px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 15px; position: relative; outline: none; cursor: pointer; transition: 0.3s; margin: 0; }
-  .toggle::after { content: ''; position: absolute; width: 26px; height: 26px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+  .switch-title.active { color: var(--accent); }
+  .toggle { appearance: none; width: 50px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 15px; position: relative; outline: none; cursor: pointer; transition: 0.3s; }
+  .toggle::after { content: ''; position: absolute; width: 26px; height: 26px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: 0.3s; }
   .toggle:checked { background: var(--accent); }
   .toggle:checked::after { transform: translateX(20px); }
 
-  /* 服务列表 */
   .service-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-  .card { padding: 16px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; cursor: pointer; }
-  .card.selected { border-color: var(--accent); background: rgba(10, 132, 255, 0.15); box-shadow: 0 0 15px rgba(10,132,255,0.15); }
-  .card-left { display: flex; align-items: center; }
-  .icon-box { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
-  .card.selected .icon-box { background: var(--accent); }
-  .card-name { font-size: 15px; font-weight: 600; display: block; }
-  .card-desc { font-size: 11px; color: var(--text-g); margin-top: 2px; display: block; }
-  .card-right { display: flex; align-items: baseline; }
-  .currency { font-size: 12px; color: var(--accent); margin-right: 1px; }
-  .price { font-size: 22px; font-weight: 700; transition: color 0.2s; }
-  .card.selected .price { color: var(--accent); }
+  .card { padding: 16px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; cursor: pointer; }
+  .card.selected { border-color: var(--accent); background: rgba(10, 132, 255, 0.15); }
+  .card-name { font-size: 15px; font-weight: 600; }
+  .card-desc { font-size: 11px; color: var(--text-g); }
+  .price { font-size: 22px; font-weight: 700; color: var(--accent); }
 
-  /* 时效卡片 */
-  .timeline-card { padding: 16px; margin-bottom: 15px; display: flex; flex-direction: column; }
-  .timeline-title { font-size: 13px; color: var(--text-g); margin-bottom: 12px; font-weight: 600; }
-  .timeline-row { display: flex; align-items: flex-start; }
-  .t-icon-box { width: 30px; height: 30px; background: rgba(10, 132, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0; z-index: 2; }
-  .t-content { display: flex; flex-direction: column; padding-top: 4px; }
-  .t-head { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 3px; }
-  .t-sub { font-size: 11px; color: rgba(255, 255, 255, 0.5); }
-  .t-line-connect { width: 1px; height: 20px; background: rgba(255, 255, 255, 0.1); margin-left: 15px; margin-top: -5px; margin-bottom: -5px; z-index: 1; }
-
-  /* 触发按钮 */
   .trigger-btn { height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; cursor: pointer; margin-bottom: 15px;}
-  .trigger-btn.filled { border-color: rgba(10, 132, 255, 0.5); background: rgba(10, 132, 255, 0.1); }
-  .trigger-left { display: flex; align-items: center; }
-  .trigger-icon { margin-right: 10px; opacity: 0.8; width: 20px; height: 20px; }
   .trigger-text { font-size: 15px; font-weight: 500; }
   .arrow { color: var(--text-g); font-size: 16px; }
-  .check-mark { color: var(--accent); font-size: 16px; font-weight: 700; display: none; }
-  .trigger-btn.filled .arrow { display: none; }
-  .trigger-btn.filled .check-mark { display: inline; }
 
-  /* 底部栏 */
+  /* 订单总结卡片 */
+  .order-summary { padding: 16px; margin-bottom: 15px; display: none; }
+  .summary-title { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+  .summary-content { font-size: 13px; color: var(--text-w); background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; white-space: pre-wrap; margin-bottom: 12px; font-family: monospace; border: 1px dashed rgba(255,255,255,0.2); line-height: 1.6; }
+  .copy-order-btn { width: 100%; background: rgba(10, 132, 255, 0.15); color: var(--accent); border: 1px solid var(--accent); border-radius: 8px; height: 42px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+  .copy-order-btn:active { background: var(--accent); color: #fff; }
+
+  /* 教程说明板 */
+  .guide-card { padding: 16px; margin-top: 5px; margin-bottom: 20px; }
+  .guide-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 12px; display: flex; align-items: center; }
+  .guide-step { font-size: 12px; color: var(--text-g); line-height: 1.6; margin-bottom: 8px; display: flex; }
+  .step-num { color: var(--accent); font-weight: 800; margin-right: 8px; }
+
   .footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-  .warning-strip { background: rgba(255, 69, 58, 0.1); padding: 8px 0; text-align: center; }
-  .warning-strip span { font-size: 10px; color: #FF453A; }
   .action-area { padding: 10px 20px 15px; display: flex; justify-content: space-between; align-items: center; }
-  .contact-btn { display: flex; flex-direction: column; align-items: center; opacity: 0.9; cursor: pointer; }
-  .contact-btn span { font-size: 9px; color: var(--accent); margin-top: 2px; }
-  .order-group { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
-  .price-box { margin-right: 12px; text-align: right; }
-  .label { font-size: 10px; color: var(--text-g); display: block; }
-  .amount { font-size: 23px; font-weight: 700; color: #fff; }
-  .pay-btn { background: var(--accent); color: #fff; border: none; border-radius: 20px; padding: 0 24px; height: 42px; font-size: 15px; font-weight: 600; box-shadow: 0 2px 10px rgba(10,132,255,0.4); cursor: pointer; }
+  .pay-btn { background: var(--accent); color: #fff; border: none; border-radius: 20px; padding: 0 24px; height: 42px; font-size: 15px; font-weight: 600; cursor: pointer; }
 
-  /* 弹窗系统 */
-  .modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+  .modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(5px); }
   .modal-mask.show { opacity: 1; visibility: visible; }
-  .modal-box { width: 300px; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.15); transform: scale(0.9); transition: 0.3s; background: rgba(30,30,30,0.95); }
-  .modal-mask.show .modal-box { transform: scale(1); }
-  .modal-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 20px; }
-  .modal-input-group { background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-  .modal-row { display: flex; align-items: center; height: 50px; padding: 0 15px; }
-  .modal-label { width: 70px; font-size: 14px; color: var(--text-w); font-weight: 600; }
-  .modal-input { flex: 1; height: 100%; font-size: 14px; color: var(--accent); text-align: right; background: transparent; border: none; outline: none; }
-  .modal-input::placeholder { color: rgba(255,255,255,0.3); }
-  .modal-line { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-left: 15px; }
-  .modal-save-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 25px; height: 44px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .modal-box { width: 300px; border-radius: 16px; padding: 20px; background: rgba(30,30,30,0.95); border: 1px solid rgba(255,255,255,0.15); }
+  .modal-row { display: flex; align-items: center; height: 50px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .modal-label { width: 80px; font-size: 14px; }
+  .modal-input { flex: 1; background: transparent; border: none; color: var(--accent); text-align: right; outline: none; }
+  .modal-save-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 25px; height: 44px; margin-top: 20px; font-weight: 600; }
 
-  /* 提示框系统 */
-  .alert-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 12px; }
-  .alert-content { font-size: 13px; color: var(--text-g); margin-bottom: 20px; line-height: 1.5; white-space: pre-wrap; text-align: left; }
-  .alert-btns { display: flex; border-top: 1px solid var(--border); margin: 0 -20px -20px; }
-  .alert-btn { flex: 1; padding: 12px 0; font-size: 16px; font-weight: 600; color: var(--accent); cursor: pointer; text-align: center; }
-  .alert-btn.cancel { color: var(--text-g); border-right: 1px solid var(--border); font-weight: 400; }
-  .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s; }
+  .alert-content { font-size: 13px; color: var(--text-g); margin: 15px 0; line-height: 1.6; }
+  .alert-btns { display: flex; margin: 20px -20px -20px; border-top: 1px solid var(--border); }
+  .alert-btn { flex: 1; padding: 15px; text-align: center; color: var(--accent); font-weight: 600; cursor: pointer; }
+  .alert-btn.cancel { border-right: 1px solid var(--border); color: var(--text-g); font-weight: 400; }
+  .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s; text-align: center; }
   .toast.show { opacity: 1; visibility: visible; }
 </style>
 </head>
@@ -126,118 +89,72 @@
   <div class="header">
     <div>
       <span class="brand">EZ CLEAN</span>
-      <div class="slogan-wrap">
-        <span class="slogan">让电脑呼吸顺畅</span>
-        <div class="indicator"></div>
-      </div>
+      <div class="slogan-wrap"><span class="slogan">让电脑呼吸顺畅</span><div class="indicator"></div></div>
     </div>
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M20 6H4V18H20V6ZM20 4C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H20ZM12 8C13.1 8 14 8.9 14 10H10C10 8.9 10.9 8 12 8ZM12 16C10.67 16 9.55 15.1 9.14 13.88C9.53 14.12 10 14.25 10.5 14.25H13.5C14 14.25 14.47 14.12 14.86 13.88C14.45 15.1 13.33 16 12 16Z" fill="#0A84FF"/></svg>
   </div>
 
   <div class="switch-card glass-effect">
     <div>
-      <div>
-        <span class="switch-title" id="invertedText">主板倒置机型</span>
-        <span class="badge">Pro</span>
-      </div>
-      <span class="switch-desc">如暗影精灵、外星人等复杂拆装机型</span>
+      <span class="switch-title" id="invertedText">主板倒置机型</span>
+      <span class="switch-desc" style="font-size: 11px; color: var(--text-g); margin-top: 3px; display: block;">如暗影精灵、外星人等复杂拆装机型</span>
     </div>
     <input type="checkbox" class="toggle" id="invertedToggle">
   </div>
 
   <div class="service-list" id="serviceContainer"></div>
 
-  <div class="timeline-card glass-effect">
-    <div class="timeline-title">服务标准 & 时效</div>
-    <div class="timeline-row">
-      <div class="t-icon-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 7H16V6C16 4.9 15.1 4 14 4H9C7.9 4 7 4.9 7 6V7H4C2.9 7 2 7.9 2 9V19C2 20.1 2.9 21 4 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM9 6H14V7H9V6ZM19 19H4V9H7V11H9V9H14V11H16V9H19V19Z" fill="#0A84FF"/></svg>
-      </div>
-      <div class="t-content">
-        <span class="t-head">上门取货</span>
-        <span class="t-sub">取货时间将提前一天通知</span>
-      </div>
-    </div>
-    <div class="t-line-connect"></div>
-    <div class="timeline-row">
-      <div class="t-icon-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="#0A84FF"/></svg>
-      </div>
-      <div class="t-content">
-        <span class="t-head">1-2 天完工</span>
-        <span class="t-sub">深度清理耗时，完工后送回</span>
-      </div>
-    </div>
-    <div class="t-line-connect"></div>
-    <div class="timeline-row">
-      <div class="t-icon-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 10.5V7C17 6.45 16.55 6 16 6H4C3.45 6 3 6.45 3 7V17C3 17.55 3.45 18 4 18H16C16.55 18 17 17.55 17 17V13.5L21 17.5V6.5L17 10.5Z" fill="#0A84FF"/></svg>
-      </div>
-      <div class="t-content">
-        <span class="t-head">全程录像</span>
-        <span class="t-sub">过程留档，非特殊情况不接受售后</span>
-      </div>
-    </div>
+  <div class="trigger-btn glass-effect" id="infoTrigger" onclick="document.getElementById('infoModal').classList.add('show')">
+    <div><span class="trigger-text">1. 填写预约资料 (必填)</span></div>
+    <div><span class="arrow">&gt;</span></div>
   </div>
 
-  <div class="trigger-btn glass-effect" id="infoTrigger">
-    <div class="trigger-left">
-      <svg class="trigger-icon" viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM16 18H8V16H16V18ZM16 14H8V12H16V14ZM13 9V3.5L18.5 9H13Z" fill="#FFF" fill-opacity="0.8"/></svg>
-      <span class="trigger-text" id="triggerText">填写预约信息 (必填)</span>
-    </div>
-    <div>
-      <span class="arrow">&gt;</span>
-      <span class="check-mark">✓</span>
-    </div>
+  <div class="order-summary glass-effect" id="orderSummary">
+    <div class="summary-title">✔️ 预约资料已就绪</div>
+    <div class="summary-content" id="summaryContent"></div>
+    <button class="copy-order-btn" onclick="copyOrderText()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right: 6px;"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="#0A84FF"/></svg>
+      一键复制订单
+    </button>
+  </div>
+
+  <div class="guide-card glass-effect">
+    <div class="guide-title">💡 预约操作指南</div>
+    <div class="guide-step"><span class="step-num">01</span><span>完善机型资料后，点击右下角【立即预约】。</span></div>
+    <div class="guide-step"><span class="step-num">02</span><span>系统将自动复制客服微信号，并为您打开微信。</span></div>
+    <div class="guide-step"><span class="step-num">03</span><span>在微信中搜索并添加客服好友。</span></div>
+    <div class="guide-step"><span class="step-num">04</span><span>返回本网页，点击【一键复制订单】，再次打开微信发送给客服即可完成预约。</span></div>
   </div>
 
   <div class="footer glass-heavy">
-    <div class="warning-strip"><span>⚠️ 仅提供清灰服务，不承接硬件维修</span></div>
     <div class="action-area">
-      <div class="contact-btn" onclick="copyContact()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 15.5C18.75 15.5 17.55 15.3 16.43 14.93C16.08 14.82 15.69 14.9 15.41 15.18L13.21 17.38C10.38 15.94 8.06 13.62 6.62 10.79L8.82 8.59C9.1 8.31 9.18 7.92 9.07 7.57C8.7 6.45 8.5 5.25 8.5 4C8.5 3.45 8.05 3 7.5 3H4C3.45 3 3 3.45 3 4C3 13.39 10.61 21 20 21C20.55 21 21 20.55 21 20V16.5C21 15.95 20.55 15.5 20 15.5Z" fill="#0A84FF"/></svg>
-        <span>客服</span>
+      <div style="flex:1">
+        <span style="font-size:10px; color:var(--text-g)">预约总计</span><br>
+        <span class="amount" id="totalPriceDisplay" style="font-size:24px; font-weight:700">¥39</span>
       </div>
-      <div class="order-group">
-        <div class="price-box">
-          <span class="label">预约费用</span>
-          <span class="amount" id="totalPriceDisplay">¥39</span>
-        </div>
-        <button class="pay-btn" onclick="submitOrder()">立即预约</button>
-      </div>
+      <button class="pay-btn" onclick="submitOrder()">立即预约</button>
     </div>
   </div>
 
-  <div class="modal-mask" id="infoModal">
+  <div class="modal-mask" id="infoModal" onclick="if(event.target===this) this.classList.remove('show')">
     <div class="modal-box">
-      <div class="modal-title">完善信息</div>
-      <div class="modal-input-group">
-        <div class="modal-row">
-          <span class="modal-label">称呼</span>
-          <input class="modal-input" type="text" id="inpName" placeholder="怎么称呼您">
-        </div>
-        <div class="modal-line"></div>
-        <div class="modal-row">
-          <span class="modal-label">联系方式</span>
-          <input class="modal-input" type="text" id="inpContact" placeholder="手机号或微信">
-        </div>
-        <div class="modal-line"></div>
-        <div class="modal-row">
-          <span class="modal-label">电脑型号</span>
-          <input class="modal-input" type="text" id="inpModel" placeholder="例: 联想Y9000P">
-        </div>
-      </div>
-      <button class="modal-save-btn" onclick="saveInfo()">保存</button>
+      <div style="text-align:center; font-weight:700; margin-bottom:15px; font-size:18px;">填写预约资料</div>
+      <div class="modal-row"><span class="modal-label">称呼</span><input class="modal-input" id="inpName" placeholder="怎么称呼您"></div>
+      <div class="modal-row"><span class="modal-label">微信/手机</span><input class="modal-input" id="inpContact" placeholder="方便客服联系"></div>
+      <div class="modal-row" style="border:none"><span class="modal-label">电脑型号</span><input class="modal-input" id="inpModel" placeholder="例: 拯救者Y9000P"></div>
+      <button class="modal-save-btn" onclick="saveInfo()">生成预约单</button>
     </div>
   </div>
 
   <div class="modal-mask" id="confirmModal">
     <div class="modal-box">
-      <div class="alert-title">预约确认 & 服务须知</div>
-      <div class="alert-content" id="confirmContent"></div>
+      <div style="text-align:center; font-weight:700; font-size:16px;">准备跳转微信</div>
+      <div class="alert-content">
+        系统将为您复制客服微信号并打开微信。<br><br>
+        ⚠️ <b>添加好友后，请务必返回本网页点击【一键复制订单】并发送给客服。</b>
+      </div>
       <div class="alert-btns">
         <div class="alert-btn cancel" onclick="closeConfirm()">取消</div>
-        <div class="alert-btn" onclick="processOrder()">同意并预约</div>
+        <div class="alert-btn" onclick="processOrder()">复制微信并跳转</div>
       </div>
     </div>
   </div>
@@ -251,51 +168,38 @@
     isInfoFilled: false,
     userInfo: { name: '', contact: '', model: '' },
     services: [
-      { id: 1, name: '基础清灰', desc: '深度除尘 / 涡轮风扇清理', price_normal: 39, price_inverted: 120, icon: '<path d="M16 11V3H8V11H2V21H22V11H16ZM10 5H14V11H10V5ZM18 19H6V13H8V15H16V13H18V19Z" fill="#FFF"/>' },
-      { id: 2, name: '清灰 + 自带硅脂', desc: '请自备硅脂交由我们更换', price_normal: 43, price_inverted: 124, icon: '<path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.78 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z" fill="#FFF"/>' },
-      { id: 3, name: '清灰 + 利民硅脂', desc: '含利民高性能硅脂', price_normal: 49, price_inverted: 130, icon: '<path d="M9 16.2L4.8 12L3.4 13.4L9 19L21 7L19.6 5.6L9 16.2Z" fill="#FFF"/>' },
-      { id: 4, name: '清灰 + 7950相变片', desc: '霍尼韦尔7950 / 解决积热神器', price_normal: 89, price_inverted: 170, icon: '<path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.78 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z" fill="#FFF"/>' }
+      { id: 1, name: '基础清灰', desc: '深度除尘 / 涡轮风扇清理', price_normal: 39, price_inverted: 120 },
+      { id: 2, name: '清灰 + 自带硅脂', desc: '请自备硅脂交由我们更换', price_normal: 43, price_inverted: 124 },
+      { id: 3, name: '清灰 + 品牌硅脂', desc: '含高性能导热硅脂', price_normal: 49, price_inverted: 130 },
+      { id: 4, name: '清灰 + 7950相变片', desc: '解决积热神器 / 顶级效能', price_normal: 89, price_inverted: 170 }
     ]
   };
 
   const container = document.getElementById('serviceContainer');
   const priceDisplay = document.getElementById('totalPriceDisplay');
   const toggle = document.getElementById('invertedToggle');
-  const toggleText = document.getElementById('invertedText');
+  const infoModal = document.getElementById('infoModal');
+  const confirmModal = document.getElementById('confirmModal');
 
   function render() {
     container.innerHTML = state.services.map(s => `
       <div class="card glass-effect ${state.selectedId === s.id ? 'selected' : ''}" onclick="selectService(${s.id})">
-        <div class="card-left">
-          <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">${s.icon}</svg></div>
-          <div>
-            <span class="card-name">${s.name}</span>
-            <span class="card-desc">${s.desc}</span>
-          </div>
-        </div>
-        <div class="card-right">
-          <span class="currency">¥</span>
-          <span class="price">${state.isInverted ? s.price_inverted : s.price_normal}</span>
-        </div>
+        <div><span class="card-name">${s.name}</span><br><span class="card-desc">${s.desc}</span></div>
+        <div class="price">¥${state.isInverted ? s.price_inverted : s.price_normal}</div>
       </div>
     `).join('');
     
-    const currService = state.services.find(s => s.id === state.selectedId);
-    priceDisplay.innerText = '¥' + (state.isInverted ? currService.price_inverted : currService.price_normal);
+    const curr = state.services.find(s => s.id === state.selectedId);
+    priceDisplay.innerText = '¥' + (state.isInverted ? curr.price_inverted : curr.price_normal);
     
-    if (state.isInverted) toggleText.classList.add('active');
-    else toggleText.classList.remove('active');
+    // 如果已经填写了信息，则动态更新订单面板的文本
+    if (state.isInfoFilled) {
+        updateOrderSummaryText();
+    }
   }
 
   function selectService(id) { state.selectedId = id; render(); }
-  
   toggle.addEventListener('change', (e) => { state.isInverted = e.target.checked; render(); });
-
-  const infoModal = document.getElementById('infoModal');
-  const triggerBtn = document.getElementById('infoTrigger');
-  
-  triggerBtn.onclick = () => infoModal.classList.add('show');
-  infoModal.onclick = (e) => { if(e.target === infoModal) infoModal.classList.remove('show'); };
 
   function saveInfo() {
     state.userInfo.name = document.getElementById('inpName').value.trim();
@@ -303,72 +207,63 @@
     state.userInfo.model = document.getElementById('inpModel').value.trim();
     
     if (!state.userInfo.name || !state.userInfo.contact || !state.userInfo.model) {
-      showToast('三项均为必填'); return;
-    }
-    state.isInfoFilled = true;
-    infoModal.classList.remove('show');
-    triggerBtn.classList.add('filled');
-    document.getElementById('triggerText').innerText = '预约信息已完善';
-  }
-
-  const confirmModal = document.getElementById('confirmModal');
-  
-  // 下单确认逻辑
-  function submitOrder() {
-    if (!state.isInfoFilled) { 
-      showToast('请先完善预约信息'); 
-      infoModal.classList.add('show'); 
-      return; 
+      showToast('请完整填写预约资料'); return;
     }
     
+    state.isInfoFilled = true;
+    infoModal.classList.remove('show');
+    
+    // 隐藏触发按钮，显示订单卡片
+    document.getElementById('infoTrigger').style.display = 'none';
+    document.getElementById('orderSummary').style.display = 'block';
+    updateOrderSummaryText();
+    
+    showToast('资料已保存，请点击右下角立即预约');
+  }
+
+  function updateOrderSummaryText() {
     const curr = state.services.find(s => s.id === state.selectedId);
     const mode = state.isInverted ? '【主板倒置】' : '【普通机型】';
     const price = state.isInverted ? curr.price_inverted : curr.price_normal;
-    
-    // 修改确认弹窗的文案，提示后续操作
-    document.getElementById('confirmContent').innerText = 
-      `项目：${curr.name}\n机型：${state.userInfo.model} ${mode}\n总价：¥${price}\n\n⚠️ 注意事项：\n点击下方按钮后，系统将自动复制客服微信号并为您打开微信。\n请在微信中添加好友并告知您的机型及预约项目。`;
-    
+    const text = `[EZ CLEAN 预约单]\n项目：${curr.name}\n机型：${state.userInfo.model} ${mode}\n称呼：${state.userInfo.name}\n联系：${state.userInfo.contact}\n总额：¥${price}`;
+    document.getElementById('summaryContent').innerText = text;
+  }
+
+  function copyOrderText() {
+    const text = document.getElementById('summaryContent').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('订单已复制！请前往微信粘贴发送给客服');
+    });
+  }
+
+  function submitOrder() {
+    if (!state.isInfoFilled) { 
+        showToast('请先填写预约资料'); 
+        infoModal.classList.add('show'); 
+        return; 
+    }
     confirmModal.classList.add('show');
   }
 
   function closeConfirm() { confirmModal.classList.remove('show'); }
 
-  // 处理跳转与复制逻辑
   function processOrder() {
     closeConfirm();
-    
-    // 目标微信号
-    const targetWxid = "wxid_gbodfcwsnii822";
-    
-    // 写入剪贴板
-    navigator.clipboard.writeText(targetWxid).then(() => {
-      showToast('微信号已复制，正在为您打开微信...');
-      
-      // 延时1.5秒后拉起微信主程序
-      setTimeout(() => { 
-        window.location.href = "weixin://"; 
-      }, 1500);
-      
-    }).catch(err => {
-      // 兼容部分不支持自动复制的旧版浏览器
-      showToast('复制失败，请手动添加微信: ' + targetWxid);
-    });
-  }
-
-  function copyContact() {
-    const targetWxid = "wxid_gbodfcwsnii822";
-    navigator.clipboard.writeText(targetWxid).then(() => {
-      showToast('微信号已复制，请前往微信添加客服');
+    const wxid = "wxid_gbodfcwsnii822";
+    navigator.clipboard.writeText(wxid).then(() => {
+      showToast('客服微信号已复制，正在为您打开微信...');
+      setTimeout(() => { window.location.href = "weixin://"; }, 1500);
     });
   }
 
   function showToast(msg) {
     const el = document.getElementById('toast');
-    el.innerText = msg; el.classList.add('show');
+    el.innerText = msg; 
+    el.classList.add('show');
     setTimeout(() => el.classList.remove('show'), 2000);
   }
-
+  
+  // 初始化执行
   render();
 </script>
 </body>

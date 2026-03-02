@@ -19,7 +19,17 @@
   }
   
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; -webkit-tap-highlight-color: transparent; }
-  body { background-color: var(--bg); color: var(--text-primary); padding: 20px 16px 170px; position: relative; min-height: 100vh; overflow-x: hidden; }
+  
+  body { 
+    background-color: var(--bg); 
+    color: var(--text-primary); 
+    padding: 20px 16px 170px; 
+    position: relative; 
+    min-height: 100vh; 
+    overflow-x: hidden; 
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
   
   .bg-glow { position: fixed; width: 60vw; height: 60vw; border-radius: 50%; filter: blur(80px); opacity: 0.08; pointer-events: none; z-index: -1; }
   .top-glow { background: var(--accent); top: -10%; left: -10%; }
@@ -32,31 +42,27 @@
   .slogan-wrap { display: flex; align-items: center; margin-top: 4px; }
   .slogan { font-size: 13px; color: var(--text-secondary); }
 
-  /* 调整形变比例为 0.95，防止剧烈跳动，同时保持果冻阻尼感 */
-  .jelly-effect { transition: transform 0.6s var(--jelly-out), background-color 0.4s ease, opacity 0.4s ease; transform: scale(1); }
-  .jelly-effect:active { transform: scale(0.95); opacity: 0.8; transition: transform 0.1s var(--jelly-in), opacity 0.1s ease; }
+  .jelly-effect { transition: transform 0.6s var(--jelly-out), background-color 0.4s ease, opacity 0.4s ease; transform: scale(1) translateZ(0); }
+  .jelly-effect:active { transform: scale(0.95) translateZ(0); opacity: 0.8; transition: transform 0.1s var(--jelly-in), opacity 0.1s ease; }
 
-  .switch-card { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; cursor: pointer; }
+  .switch-card { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; cursor: pointer; outline: none; }
   .switch-title { font-size: 16px; font-weight: 500; }
   .switch-desc { font-size: 13px; color: var(--text-secondary); margin-top: 4px; display: block; }
   
-  /* 纯 UI 绘制的开关，不再受原生 input 的限制 */
   .toggle { width: 51px; height: 31px; background: rgba(120, 120, 128, 0.32); border-radius: 16px; position: relative; transition: background-color 0.3s ease; }
   .toggle::after { content: ''; position: absolute; width: 27px; height: 27px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: transform 0.6s var(--jelly-out), width 0.2s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.16); }
-  /* 按压时的苹果原生拉伸物理效果 */
   .switch-card:active .toggle::after { width: 34px; }
   
-  /* JS 赋予的激活状态 */
   .toggle.active { background: #34C759; }
   .toggle.active::after { transform: translateX(20px); }
   .switch-card:active .toggle.active::after { transform: translateX(13px); width: 34px; }
 
   .service-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
   
-  .card { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid transparent; transition: transform 0.6s var(--jelly-out), border-color 0.4s ease, background-color 0.4s ease; transform-origin: center; }
-  .card:active { transform: scale(0.95); transition: transform 0.1s var(--jelly-in); }
-  .card.selected { border-color: var(--accent); background: var(--accent-bg); transform: scale(1.03); }
-  .card.selected:active { transform: scale(0.97); }
+  .card { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid transparent; transition: transform 0.6s var(--jelly-out), border-color 0.4s ease, background-color 0.4s ease; transform-origin: center; outline: none; }
+  .card:active { transform: scale(0.95) translateZ(0); transition: transform 0.1s var(--jelly-in); }
+  .card.selected { border-color: var(--accent); background: var(--accent-bg); transform: scale(1.03) translateZ(0); }
+  .card.selected:active { transform: scale(0.97) translateZ(0); }
   
   .card-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; display: block; }
   .card-desc { font-size: 13px; color: var(--text-secondary); }
@@ -64,13 +70,20 @@
   .card.selected .price { color: var(--accent); }
 
   .section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0 0 10px 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+  
+  .material-info { padding: 20px; margin-bottom: 24px; }
+  .material-row { display: flex; flex-direction: column; }
+  .material-name { font-size: 14px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; }
+  .material-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; text-align: justify; }
+  .material-divider { width: 100%; height: 1px; background: var(--border); margin: 16px 0; }
+
   .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
   .adv-card { padding: 16px; display: flex; flex-direction: column; align-items: flex-start; }
   .adv-icon-box { margin-bottom: 12px; color: var(--accent); }
   .adv-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
   .adv-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
 
-  .trigger-btn { height: 56px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; margin-bottom: 16px; }
+  .trigger-btn { height: 56px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; margin-bottom: 16px; outline: none; }
   .trigger-btn.filled { border-color: var(--accent); background: var(--accent-bg); }
   .check-mark { color: var(--accent); display: none; font-weight: 600; font-size: 18px; }
   .trigger-btn.filled .check-mark { display: inline; }
@@ -79,7 +92,7 @@
   .order-summary { padding: 20px; margin-bottom: 24px; display: none; }
   .summary-title { font-size: 15px; font-weight: 600; color: #34C759; margin-bottom: 12px; display: flex; align-items: center; }
   .summary-content { font-size: 13px; color: var(--text-secondary); background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; white-space: pre-wrap; margin-bottom: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.6; }
-  .copy-order-btn { width: 100%; background: var(--text-primary); color: #000; border: none; border-radius: 12px; height: 48px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .copy-order-btn { width: 100%; background: var(--text-primary); color: #000; border: none; border-radius: 12px; height: 48px; font-size: 16px; font-weight: 600; cursor: pointer; outline: none; }
 
   .guide-card { padding: 20px; margin-bottom: 24px; }
   .guide-step { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; display: flex; align-items: flex-start; }
@@ -88,22 +101,22 @@
 
   .footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; padding-bottom: calc(env(safe-area-inset-bottom) + 12px); }
   .action-area { padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .pay-btn { background: var(--text-primary); color: #000; border: none; border-radius: 24px; padding: 0 32px; height: 48px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .pay-btn { background: var(--text-primary); color: #000; border: none; border-radius: 24px; padding: 0 32px; height: 48px; font-size: 16px; font-weight: 600; cursor: pointer; outline: none; }
 
   .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
   .modal-mask.show { opacity: 1; visibility: visible; }
-  .modal-box { width: 320px; border-radius: 20px; padding: 24px; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 0.5px solid rgba(255,255,255,0.15); transform: scale(0.85); opacity: 0; transition: transform 0.5s var(--jelly-out), opacity 0.4s ease; box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+  .modal-box { width: 320px; border-radius: 20px; padding: 24px; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 0.5px solid rgba(255,255,255,0.15); transform: scale(0.85); opacity: 0; transition: transform 0.5s var(--jelly-out), opacity 0.4s ease; box-shadow: 0 24px 48px rgba(0,0,0,0.4); will-change: transform, opacity; }
   .modal-mask.show .modal-box { transform: scale(1); opacity: 1; }
   
   .modal-row { display: flex; align-items: center; height: 56px; border-bottom: 0.5px solid var(--border); }
   .modal-label { width: 84px; font-size: 15px; font-weight: 500; }
   .modal-input { flex: 1; background: transparent; border: none; color: var(--text-primary); font-size: 15px; text-align: right; outline: none; }
   .modal-input::placeholder { color: rgba(235, 235, 245, 0.3); }
-  .modal-save-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 14px; height: 48px; margin-top: 24px; font-size: 16px; font-weight: 600; }
+  .modal-save-btn { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 14px; height: 48px; margin-top: 24px; font-size: 16px; font-weight: 600; outline: none; }
 
   .alert-content { font-size: 14px; color: var(--text-secondary); margin: 12px 0 24px; line-height: 1.5; text-align: center; }
   .alert-btns { display: flex; flex-direction: column; gap: 12px; margin: 0; }
-  .alert-btn { width: 100%; border-radius: 12px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .alert-btn { width: 100%; border-radius: 12px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; outline: none; }
   .alert-btn.primary { background: var(--accent); color: #fff; }
   .alert-btn.cancel { background: rgba(255,255,255,0.1); color: var(--text-primary); font-weight: 500; }
   
@@ -122,7 +135,7 @@
     </div>
   </div>
 
-  <div class="switch-card glass-effect jelly-effect" onclick="toggleInverted()">
+  <div class="switch-card glass-effect jelly-effect" role="button" tabindex="0" onclick="toggleInverted()">
     <div>
       <span class="switch-title" id="invertedText">主板倒置机型</span>
       <span class="switch-desc">包含暗影精灵、外星人等特殊结构</span>
@@ -131,6 +144,19 @@
   </div>
 
   <div class="service-list" id="serviceContainer"></div>
+
+  <div class="section-title">Material Spec</div>
+  <div class="material-info glass-effect jelly-effect">
+    <div class="material-row">
+      <span class="material-name" style="color: var(--text-primary);">品牌高性能硅脂</span>
+      <span class="material-desc">具备较高的初始导热系数，涂抹后即时生效。适用于常规负载的散热需求，物理衰减周期通常为 6 个月至 1 年。</span>
+    </div>
+    <div class="material-divider"></div>
+    <div class="material-row">
+      <span class="material-name" style="color: #34C759;">7950 工业级相变片</span>
+      <span class="material-desc">依靠运行高温液化填补微孔，低温固化防止泵出。使用周期极长，通常 1 至 2 年需更换一次。材料具备物理状态转换过程，需连续正常运行约一个星期后，方可达到标准导热水平。</span>
+    </div>
+  </div>
 
   <div class="section-title">Why Us</div>
   <div class="adv-grid">
@@ -165,7 +191,7 @@
   </div>
 
   <div class="section-title">Booking</div>
-  <div class="trigger-btn glass-effect jelly-effect" id="infoTrigger" onclick="document.getElementById('infoModal').classList.add('show')">
+  <div class="trigger-btn glass-effect jelly-effect" role="button" tabindex="0" id="infoTrigger" onclick="toggleModal('infoModal', true)">
     <div><span class="switch-title">📝 填写预约资料</span></div>
     <div><span class="arrow" style="color: var(--text-secondary);">&gt;</span><span class="check-mark">✓</span></div>
   </div>
@@ -194,11 +220,11 @@
     </div>
   </div>
 
-  <div class="modal-mask" id="infoModal" onclick="if(event.target===this) this.classList.remove('show')">
+  <div class="modal-mask" id="infoModal">
     <div class="modal-box">
       <div style="text-align:center; font-weight:600; margin-bottom:20px; font-size:17px;">客户资料</div>
       <div class="modal-row"><span class="modal-label">称呼</span><input class="modal-input" id="inpName" placeholder="怎么称呼您"></div>
-      <div class="modal-row"><span class="modal-label">联系方式</span><input class="modal-input" id="inpContact" placeholder="微信或手机号"></div>
+      <div class="modal-row"><span class="modal-label">联系方式</span><input class="modal-input" id="inpContact" type="tel" placeholder="手机号或微信号"></div>
       <div class="modal-row" style="border:none"><span class="modal-label">电脑型号</span><input class="modal-input" id="inpModel" placeholder="例: 拯救者Y9000P"></div>
       <button class="modal-save-btn jelly-effect" onclick="saveInfo()">保存资料</button>
     </div>
@@ -212,8 +238,8 @@
         <span style="color:#FF453A;">注：添加好友后，请返回复制“订单详情”并发送给客服。</span>
       </div>
       <div class="alert-btns">
-        <div class="alert-btn primary jelly-effect" onclick="processOrder()">确认跳转</div>
-        <div class="alert-btn cancel jelly-effect" onclick="closeConfirm()">取消</div>
+        <div class="alert-btn primary jelly-effect" role="button" tabindex="0" onclick="processOrder()">确认跳转</div>
+        <div class="alert-btn cancel jelly-effect" role="button" tabindex="0" onclick="toggleModal('confirmModal', false)">取消</div>
       </div>
     </div>
   </div>
@@ -239,9 +265,49 @@
   const infoModal = document.getElementById('infoModal');
   const confirmModal = document.getElementById('confirmModal');
 
+  function triggerVibration() {
+    if (navigator.vibrate) navigator.vibrate(50);
+  }
+
+  function toggleModal(id, show) {
+    const modal = document.getElementById(id);
+    if (show) {
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    } else {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // 点击空白处关闭模态框
+  infoModal.onclick = function(e) { if(e.target === this) toggleModal('infoModal', false); };
+  confirmModal.onclick = function(e) { if(e.target === this) toggleModal('confirmModal', false); };
+
+  async function safeCopy(text, successMsg) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        if (successMsg) showToast(successMsg);
+      } else {
+        const input = document.createElement('textarea');
+        input.value = text;
+        input.style.position = 'absolute';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        if (successMsg) showToast(successMsg);
+      }
+    } catch (err) {
+      showToast('复制失败，请长按文本复制');
+    }
+  }
+
   function initRender() {
     container.innerHTML = state.services.map(s => `
-      <div class="card glass-effect" id="service-card-${s.id}" onclick="selectService(${s.id})">
+      <div class="card glass-effect" role="button" tabindex="0" id="service-card-${s.id}" onclick="selectService(${s.id})">
         <div><span class="card-name">${s.name}</span><span class="card-desc">${s.desc}</span></div>
         <div class="price" id="service-price-${s.id}">¥${s.price_normal}</div>
       </div>
@@ -272,12 +338,13 @@
   }
 
   function selectService(id) { 
+    triggerVibration();
     state.selectedId = id; 
     updateSelectionUI(); 
   }
   
-  // 新的倒置开关逻辑
   function toggleInverted() {
+    triggerVibration();
     state.isInverted = !state.isInverted;
     const uiToggle = document.getElementById('uiToggle');
     if (state.isInverted) {
@@ -289,6 +356,7 @@
   }
 
   function saveInfo() {
+    triggerVibration();
     state.userInfo.name = document.getElementById('inpName').value.trim();
     state.userInfo.contact = document.getElementById('inpContact').value.trim();
     state.userInfo.model = document.getElementById('inpModel').value.trim();
@@ -297,8 +365,12 @@
       showToast('资料栏目不可为空'); return;
     }
     
+    if (state.userInfo.contact.length < 5) {
+      showToast('请输入正确的联系方式'); return;
+    }
+    
     state.isInfoFilled = true;
-    infoModal.classList.remove('show');
+    toggleModal('infoModal', false);
     
     document.getElementById('infoTrigger').classList.add('filled');
     document.getElementById('infoTrigger').style.display = 'none';
@@ -317,30 +389,28 @@
   }
 
   function copyOrderText() {
+    triggerVibration();
     const text = document.getElementById('summaryContent').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('已复制，请切换至微信发送');
-    });
+    safeCopy(text, '已复制，请切换至微信发送');
   }
 
   function submitOrder() {
+    triggerVibration();
     if (!state.isInfoFilled) { 
         showToast('需先填写资料建立档案'); 
-        infoModal.classList.add('show'); 
+        toggleModal('infoModal', true); 
         return; 
     }
-    confirmModal.classList.add('show');
+    toggleModal('confirmModal', true);
   }
 
-  function closeConfirm() { confirmModal.classList.remove('show'); }
-
-  function processOrder() {
-    closeConfirm();
+  async function processOrder() {
+    triggerVibration();
+    toggleModal('confirmModal', false);
     const wxid = "wxid_gbodfcwsnii822";
-    navigator.clipboard.writeText(wxid).then(() => {
-      showToast('微信号已复制，执行跳转...');
-      setTimeout(() => { window.location.href = "weixin://"; }, 1500);
-    });
+    
+    await safeCopy(wxid, '微信号已复制，执行跳转...');
+    window.location.href = "weixin://";
   }
 
   function showToast(msg) {

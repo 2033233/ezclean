@@ -131,7 +131,7 @@
   <div class="header">
     <div>
       <div class="brand">EZ CLEAN</div>
-      <div class="slogan-wrap"><span class="slogan">专业清灰服务机构</span></div>
+      <div class="slogan-wrap"><span class="slogan">深度清灰服务</span></div>
     </div>
   </div>
 
@@ -280,7 +280,6 @@
     }
   }
 
-  // 点击空白处关闭模态框
   infoModal.onclick = function(e) { if(e.target === this) toggleModal('infoModal', false); };
   confirmModal.onclick = function(e) { if(e.target === this) toggleModal('confirmModal', false); };
 
@@ -407,7 +406,7 @@
   async function processOrder() {
     triggerVibration();
     toggleModal('confirmModal', false);
-    const wxid = "wxid_gbodfcwsnii822";
+    const wxid = "EZCLEANCSR";
     
     await safeCopy(wxid, '微信号已复制，执行跳转...');
     window.location.href = "weixin://";
@@ -424,3 +423,4 @@
 </script>
 </body>
 </html>
+
